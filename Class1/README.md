@@ -1,111 +1,44 @@
-# Ejercicios de Recursividad y Divide y Vencerás en Java
+# Búsquedas en Java
 
-Este proyecto contiene una serie de **ejercicios básicos en Java** para comprender los conceptos de **recursividad** y la estrategia de **Divide y Vencerás**.
+Este proyecto contiene ejemplos prácticos de **tres tipos de algoritmos de búsqueda**:
+- **Búsqueda Lineal**
+- **Búsqueda Binaria**
+- **Búsqueda con Hashing**
 
-El código está preparado con un menú interactivo (en la clase `Class1`) donde puedes seleccionar qué ejercicio ejecutar.
-
----
-
-## 📚 Contenidos
-
-1. Factorial (iterativo y recursivo)
-2. Invertir una cadena (recursivo)
-3. Sucesión de Fibonacci (recursivo)
-4. Máximo en un array (Divide y Vencerás)
-5. Suma de elementos de un array (Divide y Vencerás)
-6. Contar elementos positivos en un array (Divide y Vencerás)
+El objetivo es que los estudiantes comprendan cómo funcionan, cuándo utilizarlos y cuáles son sus ventajas y limitaciones.
 
 ---
 
-## 1. Factorial
+## Contenido
+El programa principal se encuentra en la clase `Class1`.  
+Mediante un menú, el usuario puede ejecutar distintos ejemplos de búsqueda:
 
-El **factorial de un número n** (n!) es el producto de todos los enteros positivos desde 1 hasta n.  
-Se puede resolver tanto **iterativamente** como **recursivamente**.
-
-Se define como `n * factorial(n-1)` con el **caso base** `factorial(0) = 1`.
-
-📌 **Ejemplo**:
-
-`factorial(5) = 5 * 4 * 3 * 2 * 1 = 120`
+- **Opción 1 → Búsqueda lineal**
+- **Opción 2 → Búsqueda binaria**
+- **Opción 3 → Búsqueda en tabla hash**
+- **Opción -1 → Salir**
 
 ---
 
-##  2. Invertir una cadena (recursivo)
+## 1. Búsqueda Lineal
+### Idea principal
+Recorre el array **elemento por elemento** hasta encontrar el valor buscado.  
+Si se encuentra, devuelve la posición. Si no, devuelve -1.
 
-Dada una cadena, se devuelve la misma pero al revés.  
-La recursividad funciona tomando el **primer carácter** y colocándolo al final de la cadena invertida del resto.
+## 2. Búsqueda Binaria
+### Idea principal
 
-📌 **Ejemplo**:  
+Funciona en arrays ordenados.
+Se compara el elemento buscado con el valor en la mitad del array:
 
-`"hola" → "aloh"`
+Si es igual → encontrado.
 
+Si es menor → se busca en la mitad izquierda.
 
----
+Si es mayor → en la mitad derecha.
 
-## 3. Sucesión de Fibonacci (recursivo)
+## 3. Búsqueda con Hashing
+### Idea principal
 
-La sucesión de Fibonacci se define como:
-
-
-📌 **Ejemplo**:  
-
-`F(6) = 8`
-
-
----
-
-## 4. Máximo en un array (Divide y Vencerás)
-
-Clase: **`ArrayMaxFinder`**
-
-1. El array se divide en dos mitades.
-2. Se obtiene el máximo en cada mitad de forma recursiva.
-3. Se comparan ambos resultados para devolver el mayor.
-
-📌 **Ejemplo**:  
-
-`[3, 17, 9, 25, 42, 7, 13, 29] → Máximo = 42`
-
-
----
-
-## 5. Suma de elementos de un array (Divide y Vencerás)
-
-Clase: **`ArraySummer`**
-
-1. El array se divide en mitades.
-2. Se suman los valores de cada mitad recursivamente.
-3. Se combinan los resultados hasta obtener la suma total.
-
-📌 **Ejemplo**:  
-
-`[2, 4, 6, 8, 10] → Suma = 30`
-
-
----
-
-## 6. Contar elementos positivos en un array (Divide y Vencerás)
-
-Clase: **`PositiveCounter`**
-
-1. El array se divide en dos mitades.
-2. En cada parte se cuentan los positivos de forma recursiva.
-3. Se suman los resultados.
-
-📌 **Ejemplo**:  
-
-`[-3, 5, 0, 7, -2, 9, -1] → Positivos = 3`
-
-
----
-
-## Objetivo
-
-- Comprender cómo funcionan los **métodos recursivos**.
-- Identificar la importancia de los **casos base**.
-- Aplicar la estrategia de **Divide y Vencerás** para resolver problemas de arrays.
-- Comparar enfoques **iterativos vs recursivos**.
-
-Estos ejercicios son un primer paso hacia problemas más complejos de recursividad como búsqueda binaria, ordenación rápida (Quicksort) o multiplicación de matrices.
-
----
+Se usan tablas hash (HashMap en Java), donde cada elemento se asocia a una clave única.
+La búsqueda es muy rápida porque no recorre toda la colección, sino que calcula directamente la posición del bucket.

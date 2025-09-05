@@ -1,100 +1,87 @@
-# Ramificación y Poda (Branch & Bound) en Java
+# Algoritmos de Grafos y Voraces en Java
 
-Este proyecto implementa el **algoritmo de Ramificación y Poda** para resolver el clásico **problema de la mochila (Knapsack problem)**.
+Este proyecto implementa y ejecuta varios algoritmos clásicos de **optimización y grafos**, pensados para entender sus diferencias y aplicaciones:
 
-Se muestran dos estrategias distintas para gestionar los **nodos vivos (LNV)** del árbol de decisión:
-- **FIFO (First In, First Out)** → Exploración en **anchura** (cola).
-- **LIFO (Last In, First Out)** → Exploración en **profundidad** (pila).
-
----
-
-## ¿Qué es Ramificación y Poda?
-
-La **ramificación y poda** es una técnica de búsqueda en árboles para resolver problemas de optimización combinatoria.
-
-- **Ramificación** → dividir el problema en **subproblemas más pequeños** (hijos).
-- **Poda** → eliminar ramas que **no pueden mejorar la mejor solución encontrada** hasta ese momento, usando **cotas superiores** (optimistas).
-
-Se diferencia de **backtracking** porque aquí se usan **cotas** (upper/lower bounds) para decidir si merece la pena seguir explorando.
+1. **Algoritmo voraz de selección de actividades**
+2. **Kruskal (Árbol de Expansión Mínima - MST)**
+3. **Prim (Árbol de Expansión Mínima - MST)**
+4. **Dijkstra (Caminos más cortos desde un origen)**
 
 ---
 
-## Problema de ejemplo: Mochila Binaria
+##  1. Algoritmo voraz: **Selección de actividades**
 
-Se tiene una mochila con capacidad limitada y un conjunto de objetos.  
-Cada objeto tiene un **peso** y un **valor**.
+### 📝 Descripción
+Este es un algoritmo **greedy** (voraz).  
+Se usa cuando tenemos un conjunto de actividades con **hora de inicio y fin**, y queremos seleccionar el **máximo número de actividades compatibles** (que no se solapen).
 
-El objetivo es **seleccionar objetos** sin superar la capacidad de la mochila, maximizando el valor total.
+👉 Estrategia:
+- Ordenar las actividades por **hora de finalización**.
+- Ir seleccionando siempre la actividad que acabe más pronto y no se solape con la anterior.
 
-### Ejemplo usado en el código:
-
-- **Capacidad**: 7
-- **Objetos**:
-    - A: peso = 3, valor = 25
-    - B: peso = 2, valor = 20
-    - C: peso = 4, valor = 40
-
-**Solución óptima**: Objetos **A + C = 65** (peso 7).
-
----
-
-## Funcionamiento del código
-
-### 1. Representación de un objeto
+### 📊 Ejemplo en el código:
 ```java
-public class Item {
-    private String name;
-    private int weight;
-    private int value;
-}
+A1: 9–10
+A2: 9–12
+A6: 10–11
+A3: 11–12
+A4: 12–14
+A5: 14–15
 ```
 
+## 2. Kruskal: Árbol de Expansión Mínima (MST)
 
-### 2. Representación de un node del árbol
+### 📝 Descripción
+El algoritmo de Kruskal encuentra un árbol de expansión mínima (MST) en un grafo no dirigido y ponderado.
+Esto significa conectar todos los nodos con el mínimo coste total sin ciclos.
+
+👉 Estrategia:
+
+- Ordenar las aristas de menor a mayor peso.
+- Ir añadiendo aristas siempre que no formen un ciclo (Union-Find).
+- Se detiene cuando todos los nodos están conectados.
+
+### 📊 Ejemplo en el código:
 ```java
-public class Node {
-    private int level;       
-    private int value;       
-    private int weight;      
-    private int bound;       
-    private List<String> taken; 
-}
+A-B (1), A-C (3), B-C (2), B-D (4), C-D (5)
 ```
 
-### 3. Cálculo de cuota superior (CS)
-```java
-private int bound(Node node, int capacity, List<Item> items)
+## 3. Prim: Árbol de Expansión Mínima (MST)
+
+### 📝 Descripción
+El algoritmo de Prim también construye un MST, pero funciona de manera distinta a Kruskal.
+Se parece a Dijkstra porque crece el árbol desde un nodo inicial.
+
+👉 Estrategia:
+- Empezar en un nodo.
+- Seleccionar la arista más barata que conecta el árbol con un nuevo nodo.
+- Repetir hasta incluir todos los nodos.
+
+📊 Ejemplo empezando en A:
+- De A tomamos A-B (1)
+- Luego B-C (2)
+- Finalmente B-D (4)
+
+El MST es el mismo que con Kruskal: A-B, B-C, B-D
+
+## 4. Dijkstra: Caminos más cortos desde un origen
+
+### 📝 Descripción
+El algoritmo de Dijkstra encuentra la distancia más corta desde un nodo origen a todos los demás nodos en un grafo ponderado (sin pesos negativos).
+
+👉 Estrategia:
+- Asignar distancia 0 al nodo inicial y ∞ al resto.
+- Ir eligiendo siempre el nodo con menor distancia conocida.
+- Relajar sus aristas (actualizar distancias si encontramos un camino más corto).
+- Repetir hasta procesar todos los nodos.
+
+📊 Ejemplo en el código (grafo gd):
+```java 
+A-B (4), A-C (2), A-E (7), B-C (3), B-D (1), C-E (2), D-E (2)
 ```
-
-- Si el peso actual > capacidad → cota = 0 (nodo inválido).
-- Añade objetos mientras quepan.
-- Si hay espacio sobrante, añade fracción del siguiente objeto (estrategia voraz).
-
-Esto da una estimación optimista del valor máximo alcanzable desde ese nodo.
-
-### 4. Estrategias de exploración
-
-a) FIFO → Anchura (cola)
-````java
-Queue<Node> queue = new LinkedList<>();
-````
-- Se extrae siempre el primer nodo generado.
-- Se exploran primero los nodos de nivel superficial.
-
-b) LIFO → Profundidad (pila)
-```java
-Stack<Node> stack = new Stack<>();
-```
-- Se extrae siempre el último nodo generado.
-- Se profundiza en una rama antes de explorar las demás.
-
-### 5. Proceso general
-- Crear nodo raíz (mochila vacía).
-- Calcular su cota superior.
--  Mientras queden nodos vivos:
-- -  Extraer nodo de la lista (FIFO o LIFO).
-- - Generar hijos:
-- - - Nodo con objeto incluido.
-- - - Nodo sin objeto.
-- - Si el hijo mejora la mejor solución, actualizar.
-- - Si la cota del hijo es prometedora, mantenerlo en la LNV.
+Caminos mínimos desde A:
+- A → A = 0
+- A → C = 2
+- A → B = 4 (por A-B)
+- A → D = 5 (A-B-D o A-C-B-D)
+- A → E = 4 (A-C-E)

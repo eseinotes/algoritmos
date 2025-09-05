@@ -1,56 +1,111 @@
-# 🧩 Ejercicios de Backtracking en Java
+# Ejercicios de Recursividad y Divide y Vencerás en Java
 
-Este proyecto contiene ejemplos clásicos para aprender la técnica de **Backtracking** (vuelta atrás) en Java.  
-Se incluyen dos problemas muy representativos:
+Este proyecto contiene una serie de **ejercicios básicos en Java** para comprender los conceptos de **recursividad** y la estrategia de **Divide y Vencerás**.
 
-1. 💶 **Retirada de dinero en un cajero automático**
-2. 👑 **El problema de las N-Reinas**
+El código está preparado con un menú interactivo (en la clase `Class1`) donde puedes seleccionar qué ejercicio ejecutar.
 
 ---
 
-## 📖 ¿Qué es Backtracking?
+## 📚 Contenidos
 
-El **Backtracking** es una técnica de resolución de problemas que explora todas las soluciones posibles de manera **recursiva**.  
-La idea es:
-
-- Construir la solución paso a paso.
-- Si llegamos a una situación imposible, **retrocedemos** (backtrack) y probamos otra opción.
-- Continuamos hasta encontrar una solución válida o agotar todas las combinaciones.
-
-Se utiliza en problemas como: juegos, combinaciones, optimización, búsquedas en laberintos, y puzzles como el Sudoku o las N-Reinas.
+1. Factorial (iterativo y recursivo)
+2. Invertir una cadena (recursivo)
+3. Sucesión de Fibonacci (recursivo)
+4. Máximo en un array (Divide y Vencerás)
+5. Suma de elementos de un array (Divide y Vencerás)
+6. Contar elementos positivos en un array (Divide y Vencerás)
 
 ---
 
-## 💶 Ejemplo 1: Retirada en cajero automático
+## 1. Factorial
 
-### Problema
-Queremos retirar **210 €** de un cajero que solo tiene billetes de **50 € y 20 €**.  
-Un algoritmo **greedy** (voraz) fallaría:
-- Cogería 4 billetes de 50 € = 200 €, pero faltarían 10 € que no se pueden conseguir.
+El **factorial de un número n** (n!) es el producto de todos los enteros positivos desde 1 hasta n.  
+Se puede resolver tanto **iterativamente** como **recursivamente**.
 
-### Solución con Backtracking
-El cajero prueba combinaciones de billetes de 50 € y 20 €.  
-Si una combinación no lleva a la cantidad exacta, retrocede y prueba otra hasta encontrar una válida.
+Se define como `n * factorial(n-1)` con el **caso base** `factorial(0) = 1`.
 
-Ejemplo de una solución posible:
-- 2 billetes de 50 € + 5 billetes de 20 € = 210 €
+📌 **Ejemplo**:
 
-👉 Este problema está implementado en la clase `ATMWithdrawal`.
+`factorial(5) = 5 * 4 * 3 * 2 * 1 = 120`
 
 ---
 
-## 👑 Ejemplo 2: El problema de las N-Reinas
+##  2. Invertir una cadena (recursivo)
 
-### Problema
-Colocar `N` reinas en un tablero de ajedrez `N x N` de manera que:
-- No se ataquen entre sí.
-- No haya dos reinas en la misma fila, columna ni diagonal.
+Dada una cadena, se devuelve la misma pero al revés.  
+La recursividad funciona tomando el **primer carácter** y colocándolo al final de la cadena invertida del resto.
 
-Ejemplo: Para `N = 8` es el clásico **problema de las 8 reinas**.
+📌 **Ejemplo**:  
 
-### Solución con Backtracking
-- Colocamos una reina por fila.
-- Probamos todas las columnas posibles.
-- Si una posición es inválida, retrocedemos y probamos otra.
+`"hola" → "aloh"`
 
-👉 Este problema está implementado en la clase `NQueens`.
+
+---
+
+## 3. Sucesión de Fibonacci (recursivo)
+
+La sucesión de Fibonacci se define como:
+
+
+📌 **Ejemplo**:  
+
+`F(6) = 8`
+
+
+---
+
+## 4. Máximo en un array (Divide y Vencerás)
+
+Clase: **`ArrayMaxFinder`**
+
+1. El array se divide en dos mitades.
+2. Se obtiene el máximo en cada mitad de forma recursiva.
+3. Se comparan ambos resultados para devolver el mayor.
+
+📌 **Ejemplo**:  
+
+`[3, 17, 9, 25, 42, 7, 13, 29] → Máximo = 42`
+
+
+---
+
+## 5. Suma de elementos de un array (Divide y Vencerás)
+
+Clase: **`ArraySummer`**
+
+1. El array se divide en mitades.
+2. Se suman los valores de cada mitad recursivamente.
+3. Se combinan los resultados hasta obtener la suma total.
+
+📌 **Ejemplo**:  
+
+`[2, 4, 6, 8, 10] → Suma = 30`
+
+
+---
+
+## 6. Contar elementos positivos en un array (Divide y Vencerás)
+
+Clase: **`PositiveCounter`**
+
+1. El array se divide en dos mitades.
+2. En cada parte se cuentan los positivos de forma recursiva.
+3. Se suman los resultados.
+
+📌 **Ejemplo**:  
+
+`[-3, 5, 0, 7, -2, 9, -1] → Positivos = 3`
+
+
+---
+
+## Objetivo
+
+- Comprender cómo funcionan los **métodos recursivos**.
+- Identificar la importancia de los **casos base**.
+- Aplicar la estrategia de **Divide y Vencerás** para resolver problemas de arrays.
+- Comparar enfoques **iterativos vs recursivos**.
+
+Estos ejercicios son un primer paso hacia problemas más complejos de recursividad como búsqueda binaria, ordenación rápida (Quicksort) o multiplicación de matrices.
+
+---
