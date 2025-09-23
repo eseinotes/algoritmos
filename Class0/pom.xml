@@ -9,6 +9,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-        <exec.mainClass>com.cdiclass.class0.Class0</exec.mainClass>
+        <exec.mainClass>com.algorithms.class0.Class0</exec.mainClass>
     </properties>
 </project>
