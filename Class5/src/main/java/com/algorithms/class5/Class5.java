@@ -23,18 +23,18 @@ public class Class5 {
             
             int capacity = 7;
             
-            BranchAndBoundKnapsack branchAndBound = new BranchAndBoundKnapsack();
+            BranchAndBoundKnapsack branchAndBound = new BranchAndBoundKnapsack(items, capacity);
         
             switch (option) { 
 
                 case 1:
                     System.out.println("Problema de la mochila con FIFO");            
-                    branchAndBound.knapsackFIFO(capacity, items);
+                    branchAndBound.knapsackFIFO();
                 break;
                 
                 case 2:
                     System.out.println("Problema de la mochila con LIFO");
-                    branchAndBound.knapsackLIFO(capacity, items);
+                    branchAndBound.knapsackLIFO();
                 break;
                 
                 case -1:

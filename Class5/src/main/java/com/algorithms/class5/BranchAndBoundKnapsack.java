@@ -3,11 +3,19 @@ package com.algorithms.class5;
 import java.util.*;
 
 public class BranchAndBoundKnapsack {
+    
+    private List<Item> items;        
+    private int capacity;
+
+    public BranchAndBoundKnapsack(List<Item> items, int capacity) {
+        this.items = items;
+        this.capacity = capacity;
+    }
 
     // ------------------------------------------------------------
     // Cálculo de la cota superior 
     // ------------------------------------------------------------
-    private int bound(Node node, int capacity, List<Item> items) {
+    private int bound(Node node) {
         if (node.getWeight() > capacity) return 0;
 
         int result = node.getValue();
@@ -27,11 +35,11 @@ public class BranchAndBoundKnapsack {
     // ------------------------------------------------------------
     // Estrategia FIFO (cola)
     // ------------------------------------------------------------
-    public void knapsackFIFO(int capacity, List<Item> items) {
+    public void knapsackFIFO() {
         Queue<Node> queue = new LinkedList<>();
 
         Node root = new Node(0, 0, 0, 0, new ArrayList<>());
-        root.setBound(bound(root, capacity, items));
+        root.setBound(bound(root));
         queue.add(root);
 
         int maxValue = 0;
@@ -55,7 +63,7 @@ public class BranchAndBoundKnapsack {
                     new ArrayList<>(node.getTaken())
             );
             with.getTaken().add(item.getName());
-            with.setBound(bound(with, capacity, items));
+            with.setBound(bound(with));
 
             System.out.printf("Nodo SÍ coger %-5s -> Peso=%d, Valor=%d, Cota=%.2f%n",
                     item.getName(), with.getWeight(), with.getValue(), (double) with.getBound());
@@ -85,7 +93,7 @@ public class BranchAndBoundKnapsack {
                     0,
                     new ArrayList<>(node.getTaken())
             );
-            without.setBound(bound(without, capacity, items));
+            without.setBound(bound(without));
 
             System.out.printf("Nodo NO coger %-5s -> Peso=%d, Valor=%d, Cota=%.2f%n",
                     item.getName(), without.getWeight(), without.getValue(), (double) without.getBound());
@@ -106,11 +114,11 @@ public class BranchAndBoundKnapsack {
     // ------------------------------------------------------------
     // Estrategia LIFO (pila)
     // ------------------------------------------------------------
-    public void knapsackLIFO(int capacity, List<Item> items) {
+    public void knapsackLIFO() {
         Stack<Node> stack = new Stack<>();
 
         Node root = new Node(0, 0, 0, 0, new ArrayList<>());
-        root.setBound(bound(root, capacity, items));
+        root.setBound(bound(root));
         stack.push(root);
 
         int maxValue = 0;
@@ -134,7 +142,7 @@ public class BranchAndBoundKnapsack {
                     new ArrayList<>(node.getTaken())
             );
             with.getTaken().add(item.getName());
-            with.setBound(bound(with, capacity, items));
+            with.setBound(bound(with));
 
             System.out.printf("Nodo SÍ coger %-5s -> Peso=%d, Valor=%d, Cota=%.2f%n",
                     item.getName(), with.getWeight(), with.getValue(), (double) with.getBound());
@@ -164,7 +172,7 @@ public class BranchAndBoundKnapsack {
                     0,
                     new ArrayList<>(node.getTaken())
             );
-            without.setBound(bound(without, capacity, items));
+            without.setBound(bound(without));
 
             System.out.printf("Nodo NO coger %-5s -> Peso=%d, Valor=%d, Cota=%.2f%n",
                     item.getName(), without.getWeight(), without.getValue(), (double) without.getBound());
