@@ -1,5 +1,4 @@
-<style>.purple { color: purple; }
-.orange { color: orange; }</style>
+
 # Algoritmos de Ordenación en Java
 Este proyecto implementa y ejecuta varios algoritmos clásicos de **ordenación**, pensados para entender sus diferencias y aplicaciones:
 
